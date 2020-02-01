@@ -1,3 +1,4 @@
+import glm
 from omega_engine.core import *
 from omega_engine.backends.opengl import *
 from omega_engine.objects import *
@@ -20,7 +21,11 @@ class Ship(Particle, Entity):
     def move(self):
         #x_increase = math.cos(math.radians(self.camera.x_angle + 90)) * self.speed
         #z_increase = math.sin(math.radians(self.camera.x_angle + 90)) * self.speed
-        self.model.translate(0, 0, 5)
+        pre_pos = glm.vec3(glm.column(glm.translate(glm.mat4(self.model.matrix4), glm.vec3(0, 0, 5)), 3))
+        if pre_pos[0] <= 0.49 and pre_pos[0] >= -0.49 \
+        and pre_pos[1] <= 0.49 and pre_pos[1] >= 0 \
+        and pre_pos[2] <= 0.49 and pre_pos[2] >= -0.49:
+            self.model.translate(0, 0, 5)
 
     def rotate(self, x_angle = 0, y_angle = 0, z_angle = 0):
         self.model.rotate(x_angle, 1, 0, 0)

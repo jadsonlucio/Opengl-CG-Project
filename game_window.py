@@ -44,6 +44,15 @@ class GameWindow(OpenglWindow):
             self.map.ship.fly(-1)
 
         print(event)
+    
+    def key_down(self, event):
+        if event.key == 273:
+            pygame.mixer.music.load('resources/songs/Cabin.wav')
+            pygame.mixer.music.play(-1)
+    
+    def key_up(self, event):
+        if event.key == 273:
+            pygame.mixer.music.stop()
 
     def mouse_up(self, event):
         if event.button == 1: self.map.rotate = False
