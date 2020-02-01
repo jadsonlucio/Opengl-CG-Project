@@ -1,31 +1,37 @@
-from opengl_core import *
-from opengl_core.raw import get_normal_cube
+from omega_engine.core import *
+from omega_engine.backends.opengl import *
+from omega_engine.objects import *
 
-class Ship():
-    def __init__(self, ):
-        vertices, vertex_format, indices = get_normal_cube()
-        #Entity(vertices, vertex_format, indices, None, None)
-        self.ship_obj = Entity.load_obj("resources/objs/ww 1 for ele.obj", "resources/objs/ww 1 for ele.mtl")
+
+class Ship(Particle, Entity):
+    def __init__(self):
+        vertices, vertex_format, indices = Entity.load_obj("resources/objs/ww 1 for ele.obj", "resources/objs/ww 1 for ele.mtl")
+        Particle.__init__(self, 1, 1, 1, 1, 1, 1, 1)
+        Entity.__init__(self, vertices, vertex_format, indices)
+
         #self.ship_obj.model.rotate(40, 1, 0, 0)
-        self.ship_obj.model.scale(0.0002, 0.0002, 0.0002)
-        self.ship_obj.model.pos = (0.5, 0, 0.5)
+        self.model.scale(0.0002, 0.0002, 0.0002)
+        self.model.pos = (-0.25, 0, -0.25)
         self.aceleration = 0.1
         self.speed = 0.1
-        self.camera = Camera3RDPerson(self.ship_obj, 0, 0.06, 0.12)
+        self.camera = CameraAirPlane(self, 250, 500)
     
 
     def move(self):
-        """x_increase = math.cos(math.radians(self.camera.entity_angle + 90)) * self.speed
-        z_increase = math.sin(math.radians(self.camera.entity_angle + 90)) * self.speed"""
-        self.ship_obj.model.translate(0, 0, 5)
+        #x_increase = math.cos(math.radians(self.camera.x_angle + 90)) * self.speed
+        #z_increase = math.sin(math.radians(self.camera.x_angle + 90)) * self.speed
+        self.model.translate(0, 0, 5)
 
-    def rotate(self, dir):
-        self.camera.entity_angle += dir
-        self.ship_obj.model.rotate(dir, 0, 1, 0)
-
+    def rotate(self, x_angle = 0, y_angle = 0, z_angle = 0):
+        self.model.rotate(x_angle, 1, 0, 0)
+        self.model.rotate(y_angle, 0, 1, 0)
+        self.model.rotate(z_angle, 0, 0, 1)
+        self.camera.rotate(x_angle = x_angle)
+        self.camera.rotate(y_angle = y_angle)
+        self.camera.rotate(z_angle = z_angle)
 
     def fly(self, dir):
-        self.ship_obj.model.translate(0, dir, 0)
+        self.model.translate(0, dir, 0)
 
     
     def get_rect_vertices(self):

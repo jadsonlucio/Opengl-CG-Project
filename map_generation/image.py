@@ -5,7 +5,6 @@ from PIL import Image
 def read_image(image_path, width, height):
     img = Image.open(image_path)
     resized_img = img.resize((width, width))
-    resized_img.save("imagem.png")
     resized_img = resized_img.convert('RGB')
     resized_img_array = np.array(resized_img)
 

@@ -40,7 +40,6 @@ def generate_terrain_vertices(sizeX, sizeY, normalizantion, z_color_func):
                 indices += [fist_point, fist_point+1, fist_point+sizeX]
                 indices += [fist_point+1, fist_point+sizeX, fist_point+sizeX+1]
     
-    Image.fromarray(np.array(colors, dtype="uint8").reshape(100, 100, 3)).save("image_2.png")
     data, indices = generate_duplicate_terrain_data(vertices, colors, indices)
     return data, indices
 

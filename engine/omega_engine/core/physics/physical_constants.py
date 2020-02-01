@@ -1,0 +1,2 @@
+EARTH_GRAVITY_MS_2 = 9.807
+
