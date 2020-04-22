@@ -6,8 +6,8 @@ from ship import Ship
 
 
 class Map(Entity):
-    def __init__(self):
-        vertices, vertex_format, indices = draw_image_map_v2("resources/images/test_10.png", 100, 100, 99)
+    def __init__(self, img_name):
+        vertices, vertex_format, indices = draw_image_map_v2(f"resources/images/{img_name}", 100, 100, 99)
         super().__init__(vertices, vertex_format, indices)
         self.model.translate(-0.5, 0, -0.5)
 

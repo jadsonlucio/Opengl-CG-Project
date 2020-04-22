@@ -4,9 +4,9 @@ from map import Map
 from omega_engine.window.pygameAPI.windows.opengl_window import OpenglWindow
 
 class GameWindow(OpenglWindow):
-    def __init__(self, title, width, height):
+    def __init__(self, title, width, height, image_map):
         super().__init__(title, width, height)
-        self.map = Map()
+        self.map = Map(image_map)
     
     def on_render(self):
         self.map.clock.tick(60)
