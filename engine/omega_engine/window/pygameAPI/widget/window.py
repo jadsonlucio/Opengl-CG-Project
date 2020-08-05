@@ -15,13 +15,7 @@ class Window(Events):
         self.on_init()
         pygame.joystick.init()
 
-        print("entrou", pygame.joystick.get_init())
-        print("entrou2", pygame.joystick.get_count())
-        j = pygame.joystick.Joystick(pygame.joystick.get_count()-1)
-        j.init()
-        print(j.get_name())
-        print(j.get_numbuttons())
-        while(self.__running):
+        while self.__running:
             set_custom_events()
             events = pygame.event.get()
             for event in events:

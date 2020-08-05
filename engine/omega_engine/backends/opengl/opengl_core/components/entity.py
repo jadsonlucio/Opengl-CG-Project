@@ -3,10 +3,12 @@ import numpy as np
 from OpenGL.GL import *
 
 from omega_engine.core import load_obj_data
-from omega_engine.core import MatrixModel 
+from omega_engine.core import MatrixModel
+
 
 class Entity():
-    def __init__(self, vertices, vertex_format, indices, texture = None, model = None):
+    def __init__(self, vertices, vertex_format, indices, texture=None, model=None, draw_mode=GL_TRIANGLES):
+        self.draw_mode = draw_mode
         self.vertices = vertices
         self.vertex_format = np.array(vertex_format)
         self.indices = indices
@@ -31,7 +33,6 @@ class Entity():
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self.ibo)
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, self.indices.nbytes, self.indices, GL_STATIC_DRAW)
 
-
     def populate_vao(self):
         glBindVertexArray(self.vao)
         glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
@@ -44,7 +45,6 @@ class Entity():
             glVertexAttribPointer(position, size, dtype, False, stride, ctypes.c_void_p(int(pointer_v)))
             pointer_v += size * 4
 
-    
     def draw(self, program):
         if self.texture:
             self.texture.bind()
@@ -52,8 +52,7 @@ class Entity():
         program.set_uniform_matrix4f_by_name(self.model.matrix4, "model", 1)
         glBindVertexArray(self.vao)
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self.ibo)
-        glDrawElements(GL_TRIANGLES, len(self.indices), GL_UNSIGNED_INT, None)
-        
+        glDrawElements(self.draw_mode, len(self.indices), GL_UNSIGNED_INT, None)
 
     def __copy__(self):
         entity = Entity.__new__(Entity)
@@ -65,7 +64,6 @@ class Entity():
         entity.vao = self.vao
         entity.vbo = self.vbo
         entity.ibo = self.ibo
-        
 
         return entity
 
@@ -77,7 +75,7 @@ class Entity():
         print(np.array(vertices).shape)
         print(np.array(normals).shape)
         print(np.array(colors).shape)
-        
+
         for vertice, normal, color in zip(vertices, normals, colors):
             _vertices_data += vertice + color + normal
 
@@ -86,9 +84,3 @@ class Entity():
         _vertices_data = np.array(_vertices_data, dtype="float32")
         indices = np.array(indices, dtype="uint32")
         return _vertices_data, vertex_format, indices
-
-        
-
-
-
-
