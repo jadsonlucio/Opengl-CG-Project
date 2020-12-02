@@ -10,7 +10,7 @@ class Renderer():
         self._setup()
 
     def _setup(self):
-        glClearColor(0, 0, 0.2, 1)
+        glClearColor(0.44705882, 0.45098039, 0.47843137, 1)
         glEnable(GL_DEPTH_TEST)
         glEnable(GL_BLEND)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)

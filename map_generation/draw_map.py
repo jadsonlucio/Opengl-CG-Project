@@ -37,11 +37,11 @@ def get_terrain_height_from_draw_v2(img, x, y):
                   for c, similarity in zip(colors, similaritys)])
 
     # print(color)
-    return height
+    return  height
 
 
 def get_terrain_color_from_draw(img, x, y):
-    return img[x][y] / 255
+    return img[x][y]/255
 
 
 def draw_image_z_color_func(img, width, height, z_func, color_func):

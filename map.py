@@ -32,7 +32,7 @@ class Map(Entity):
 
         self.clock = pygame.time.Clock()
         self.rotate, self.move = False, False
-        self.rx, self.ry = 16.5, 0.5
+        self.rx, self.ry = 16.5, 114.5
         self.tx, self.ty = -3, 1
         self.zpos = 1
 

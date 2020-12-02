@@ -26,6 +26,8 @@ class GameWindow(OpenglWindow):
             self.map.camera.selected_cam = not self.map.camera._index
         if event.key == pygame.K_f:
             self.map.world_camera.save("camera.npy")
+        if event.key == pygame.K_a:
+            print(self.map.tx, self.map.ty, self.map.rx, self.map.ry, self.map.zpos)
 
     def key_hold(self, event):
         if event.key == 273:
